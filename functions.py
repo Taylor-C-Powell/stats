@@ -75,12 +75,27 @@ def binomial_cdf(p_of_success, n_trials, x_val):
     return output
 
 
+def hypergeometric_pdf(N1, N2, n, x):
+    """
+    Calculates the probability of drawing x successes in a hypergeometric distribution.
+
+    Parameters:
+    N1 (int): Number of successes in the population.
+    N2 (int): Number of failures in the population.
+    n (int): Number of draws.
+    x (int): Number of successes in the draws.
+
+    Returns:
+    float: Probability of drawing x successes.
+    """
+    return (combination(N1, x) * combination(N2, n - x)) / combination(N1 + N2, n)
+
 
 # ++ ------------ SANDBOX ------------ ++
 
 
 # Replace 'None' as needed
-to_console = binomial_pmf(0.9, 8, 8)
+to_console = 1-hypergeometric_pdf(3, 17, 5, 0)
 
 print(
     to_console
