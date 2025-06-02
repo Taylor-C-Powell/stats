@@ -95,7 +95,7 @@ def hypergeometric_pdf(N1, N2, n, x):
 
 
 # Replace 'None' as needed
-to_console = 1-hypergeometric_pdf(3, 17, 5, 0)
+to_console = (binomial_cdf(0.5, 3, 2) * binomial_cdf(0.5, 5, 5)) + (binomial_cdf(0.5, 3, 3) * binomial_cdf(0.5, 5, 4))
 
 print(
     to_console
