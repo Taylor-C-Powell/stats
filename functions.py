@@ -10,7 +10,7 @@
 #
 # Calculates the factorial of x
 # 
-# INTPUT: an integer value x
+# INPUT: an integer value x
 # OUTPUT: the factorial of x
 #
 # FORMULA: x! = x * (x - 1) * (x - 2) * ... * 3 * 2 * 1
@@ -54,6 +54,8 @@ def combination(n, r):
 #   p is the probability of success, and n is the number of trials
 #
 def binomial_pmf(p_of_success, n_trials, x_val):
+    if not (0 <= p_of_success <= 1):
+        raise ValueError("p_of_success must be between 0 and 1.")
     return combination(n_trials, x_val) * (p_of_success ** x_val) * ((1 - p_of_success) ** (n_trials - x_val))
 
 
@@ -66,9 +68,9 @@ def binomial_pmf(p_of_success, n_trials, x_val):
 #
 # FORMULA: CDF(x) = sum from i=0 to x of C(n, i) * p^i * (1 - p)^(n - i)
 #   where C(n, i) is the number of combinations of n items taken i at a time,
-#   p is the probability of success, and n is the number of trials
-#
 def binomial_cdf(p_of_success, n_trials, x_val):
+    if x_val < 0:
+        raise ValueError("x_val must be non-negative")
     output = 0
     for i in range(0, x_val + 1):
         output += binomial_pmf(p_of_success, n_trials, i)
@@ -88,7 +90,15 @@ def hypergeometric_pdf(N1, N2, n, x):
     Returns:
     float: Probability of drawing x successes.
     """
+    if not all(isinstance(i, int) and i >= 0 for i in [N1, N2, n, x]):
+        raise ValueError("All inputs must be non-negative integers.")
+    if x > n:
+        raise ValueError("x must be less than or equal to n.")
+    if n > N1 + N2:
+        raise ValueError("n must be less than or equal to N1 + N2.")
+    
     return (combination(N1, x) * combination(N2, n - x)) / combination(N1 + N2, n)
+
 
 
 # ++ ------------ SANDBOX ------------ ++
