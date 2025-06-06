@@ -100,13 +100,52 @@ def hypergeometric_pdf(N1, N2, n, x):
     return (combination(N1, x) * combination(N2, n - x)) / combination(N1 + N2, n)
 
 
+def normal_pdf(x, mu, sigma):
+    """
+    Calculates the probability density function (PDF) of a normal distribution.
+
+    Parameters:
+    x (float): The point at which to evaluate the PDF.
+    mu (float): The mean of the distribution.
+    sigma (float): The standard deviation of the distribution.
+
+    Returns:
+    float: The value of the PDF at x.
+    """
+    from math import exp, sqrt, pi
+    
+    if sigma <= 0:
+        raise ValueError("Standard deviation must be positive.")
+    
+    return (1 / (sigma * sqrt(2 * pi))) * exp(-0.5 * ((x - mu) / sigma) ** 2)
+
+
+def normal_cdf(x, mu, sigma):
+    """
+    Calculates the cumulative distribution function (CDF) of a normal distribution.
+
+    Parameters:
+    x (float): The point at which to evaluate the CDF.
+    mu (float): The mean of the distribution.
+    sigma (float): The standard deviation of the distribution.
+
+    Returns:
+    float: The value of the CDF at x.
+    """
+    from math import erf, sqrt
+    
+    if sigma <= 0:
+        raise ValueError("Standard deviation must be positive.")
+    
+    return 0.5 * (1 + erf((x - mu) / (sigma * sqrt(2))))
+
+
 
 # ++ ------------ SANDBOX ------------ ++
 
 
 # Replace 'None' as needed
-to_console = (binomial_cdf(0.5, 3, 2) * binomial_cdf(0.5, 5, 5)) + (binomial_cdf(0.5, 3, 3) * binomial_cdf(0.5, 5, 4))
-
+to_console = None
 print(
     to_console
 )
